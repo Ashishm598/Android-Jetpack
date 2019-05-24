@@ -11,9 +11,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import pojo.response.Response;
 import repositories.DataRepository;
-import ui.main.MainActivityContract;
+import ui.fragment.main.MainFragmentContract;
 
-public class MainActivityViewModel extends ViewModel implements MainActivityContract.ViewModel {
+public class MainFragmentViewModel extends ViewModel implements MainFragmentContract.ViewModel {
 
     private MutableLiveData<List<Response>> responseLiveData = new MutableLiveData<>();
     private MutableLiveData<Boolean> isOnProgress = new MutableLiveData<>();

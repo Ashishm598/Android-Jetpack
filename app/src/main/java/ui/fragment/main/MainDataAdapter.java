@@ -1,6 +1,7 @@
-package ui.main;
+package ui.fragment.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
     private LayoutInflater layoutInflater;
     private final String TAG = this.getClass().getSimpleName();
 
-    MainDataAdapter(Context mContext) {
+    public MainDataAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -43,6 +44,7 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
     public void onBindViewHolder(@NonNull MainDataViewHolder holder, int position) {
         try {
             holder.binding.setData(mData.get(position));
+            holder.binding.tvTag.setTextColor(setTextColor(mData.get(position).getColor()));
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -53,9 +55,13 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
         return (mData != null) ? mData.size() : 0;
     }
 
-    void setData(List<Response> value) {
+    public void setData(List<Response> value) {
         this.mData.addAll(value);
         notifyDataSetChanged();
+    }
+
+    private int setTextColor(String colorName) {
+        return (colorName != null) ? (colorName.equalsIgnoreCase("red")) ? Color.RED : Color.GREEN : Color.WHITE;
     }
 
     class MainDataViewHolder extends RecyclerView.ViewHolder {

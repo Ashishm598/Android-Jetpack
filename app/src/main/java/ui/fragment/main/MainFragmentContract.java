@@ -1,4 +1,4 @@
-package ui.main;
+package ui.fragment.main;
 
 import androidx.lifecycle.LiveData;
 
@@ -7,7 +7,7 @@ import java.util.List;
 import io.reactivex.Observable;
 import pojo.response.Response;
 
-public interface MainActivityContract {
+public interface MainFragmentContract {
 
     interface View {
         void initRecyclerView();

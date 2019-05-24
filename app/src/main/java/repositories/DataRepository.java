@@ -7,9 +7,9 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import pojo.response.Response;
-import ui.main.MainActivityContract;
+import ui.fragment.main.MainFragmentContract;
 
-public class DataRepository implements MainActivityContract.Repo {
+public class DataRepository implements MainFragmentContract.Repo {
 
     @Override
     public Observable<List<Response>> getResponseObservable() {
