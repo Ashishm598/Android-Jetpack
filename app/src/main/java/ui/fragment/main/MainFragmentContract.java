@@ -11,16 +11,22 @@ public interface MainFragmentContract {
 
     interface View {
         void initRecyclerView();
+
         void showProgressBar();
+
         void hideProgressBar();
+
         void loadData();
     }
 
     interface ViewModel {
-       void init();
-       void getResponse();
-       LiveData<List<Response>> getResponseLiveData();
-       LiveData<Boolean> getProgressUpdate();
+        void init();
+
+        LiveData<List<Response>> getResponse();
+
+        LiveData<List<Response>> getResponseLiveData();
+
+        LiveData<Boolean> getProgressUpdate();
 
     }
 

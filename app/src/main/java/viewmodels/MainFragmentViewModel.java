@@ -15,7 +15,7 @@ import ui.fragment.main.MainFragmentContract;
 
 public class MainFragmentViewModel extends ViewModel implements MainFragmentContract.ViewModel {
 
-    private MutableLiveData<List<Response>> responseLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Response>> responseLiveData;
     private MutableLiveData<Boolean> isOnProgress = new MutableLiveData<>();
     private DataRepository dataRepository;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -26,7 +26,7 @@ public class MainFragmentViewModel extends ViewModel implements MainFragmentCont
     }
 
     @Override
-    public void getResponse() {
+    public LiveData<List<Response>> getResponse() {
 
         isOnProgress.postValue(true);
 
@@ -38,8 +38,10 @@ public class MainFragmentViewModel extends ViewModel implements MainFragmentCont
 
             @Override
             public void onNext(List<Response> responses) {
-                if (responses != null && responses.size() > 0)
+                if (responses != null && responses.size() > 0) {
+                    responseLiveData = new MutableLiveData<>();
                     responseLiveData.setValue(responses);
+                }
             }
 
             @Override
@@ -52,12 +54,14 @@ public class MainFragmentViewModel extends ViewModel implements MainFragmentCont
                 isOnProgress.postValue(false);
             }
         });
+
+        return responseLiveData;
     }
 
 
     @Override
     public LiveData<List<Response>> getResponseLiveData() {
-        return responseLiveData;
+        return (responseLiveData == null) ? getResponse() : responseLiveData;
     }
 
     @Override

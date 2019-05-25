@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -64,13 +65,19 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
         return (colorName != null) ? (colorName.equalsIgnoreCase("red")) ? Color.RED : Color.GREEN : Color.WHITE;
     }
 
-    class MainDataViewHolder extends RecyclerView.ViewHolder {
+    class MainDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         MainListLayoutBinding binding;
 
         MainDataViewHolder(MainListLayoutBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            binding.getRoot().setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+
         }
     }
 }

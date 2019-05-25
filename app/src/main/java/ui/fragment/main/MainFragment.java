@@ -21,7 +21,7 @@ import com.ashish.marketpluseassignment.databinding.FragmentMainBinding;
 import viewmodels.MainFragmentViewModel;
 
 
-public class MainFragment extends Fragment implements MainFragmentContract.View{
+public class MainFragment extends Fragment implements MainFragmentContract.View {
 
     private View rootView;
     private FragmentMainBinding binding;
@@ -37,6 +37,8 @@ public class MainFragment extends Fragment implements MainFragmentContract.View{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getContext();
+        viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
+        viewModel.init(); // init
     }
 
     @Override
@@ -44,15 +46,11 @@ public class MainFragment extends Fragment implements MainFragmentContract.View{
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         rootView = binding.getRoot();
 
-        viewModel = ViewModelProviders.of(this).get(MainFragmentViewModel.class);
-
-        initRecyclerView(); // initRecyclerView
-
-        viewModel.init(); // init
-
-        viewModel.getResponse(); //getData
+        viewModel.getResponseLiveData();
 
         loadData(); // load
+
+        initRecyclerView(); // initRecyclerView
 
         return rootView;
     }

@@ -22,8 +22,7 @@
             android:layout_height="wrap_content"
             android:text='@{data.name,default="NAME"}'
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textColor="@color/white" />
 
         <TextView
             android:textColor="@color/white"
@@ -32,8 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_marginTop="5dp"
-            android:text='@{data.tag,default="TAG"}'
-            android:textStyle="bold" />
+            android:text='@{data.tag,default="TAG"}' />
 
 
     </RelativeLayout>
