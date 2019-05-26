@@ -3,9 +3,14 @@
 
     <data>
 
+
         <variable
             name="data"
             type="pojo.response.Response" />
+
+        <variable
+            name="color"
+            type="android.graphics.Color" />
 
     </data>
 
@@ -25,13 +30,13 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:textColor="@color/white"
             android:id="@+id/tv_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_name"
             android:layout_marginTop="5dp"
-            android:text='@{data.tag,default="TAG"}' />
+            android:text='@{data.tag,default="TAG"}'
+            android:textColor='@{(data.getColor() != null) ? (data.getColor().equalsIgnoreCase("red") ? color.RED : color.GREEN) : color.WHITE,default="@color/white"}' />
 
 
     </RelativeLayout>

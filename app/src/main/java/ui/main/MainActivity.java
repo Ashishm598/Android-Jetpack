@@ -11,7 +11,7 @@ import com.ashish.marketpluseassignment.R;
 import com.ashish.marketpluseassignment.databinding.ActivityMainBinding;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityContract.View {
 
     ActivityMainBinding binding;
     NavController navController;
@@ -23,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         initView();
     }
 
-    private void initView() {
+    @Override
+    public void initView() {
         navController = Navigation.findNavController(this, R.id.nav_main_host_fragment);
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {

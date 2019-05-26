@@ -1,15 +1,18 @@
 package pojo.response;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class Response {
+public class Response implements Parcelable {
 
     @Expose
     @SerializedName("criteria")
-    private List<Criteria> criteria;
+    private ArrayList<Criteria> criteria;
     @Expose
     @SerializedName("color")
     private String color;
@@ -23,11 +26,11 @@ public class Response {
     @SerializedName("id")
     private int id;
 
-    public List<Criteria> getCriteria() {
+    public ArrayList<? extends Parcelable> getCriteria() {
         return criteria;
     }
 
-    public void setCriteria(List<Criteria> criteria) {
+    public void setCriteria(ArrayList<Criteria> criteria) {
         this.criteria = criteria;
     }
 
@@ -73,4 +76,41 @@ public class Response {
                 ", id=" + id +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedList(this.criteria);
+        dest.writeString(this.color);
+        dest.writeString(this.tag);
+        dest.writeString(this.name);
+        dest.writeInt(this.id);
+    }
+
+    public Response() {
+    }
+
+    protected Response(Parcel in) {
+        this.criteria = in.createTypedArrayList(Criteria.CREATOR);
+        this.color = in.readString();
+        this.tag = in.readString();
+        this.name = in.readString();
+        this.id = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Response> CREATOR = new Parcelable.Creator<Response>() {
+        @Override
+        public Response createFromParcel(Parcel source) {
+            return new Response(source);
+        }
+
+        @Override
+        public Response[] newArray(int size) {
+            return new Response[size];
+        }
+    };
 }

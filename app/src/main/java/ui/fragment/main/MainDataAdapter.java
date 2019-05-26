@@ -2,6 +2,7 @@ package ui.fragment.main;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashish.marketpluseassignment.R;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pojo.response.Response;
+import util.Constants;
 
 public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDataViewHolder> {
 
@@ -45,7 +48,6 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
     public void onBindViewHolder(@NonNull MainDataViewHolder holder, int position) {
         try {
             holder.binding.setData(mData.get(position));
-            holder.binding.tvTag.setTextColor(setTextColor(mData.get(position).getColor()));
         } catch (Exception e) {
             Log.e(TAG, e.getMessage());
         }
@@ -61,9 +63,6 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
         notifyDataSetChanged();
     }
 
-    private int setTextColor(String colorName) {
-        return (colorName != null) ? (colorName.equalsIgnoreCase("red")) ? Color.RED : Color.GREEN : Color.WHITE;
-    }
 
     class MainDataViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -72,12 +71,16 @@ public class MainDataAdapter extends RecyclerView.Adapter<MainDataAdapter.MainDa
         MainDataViewHolder(MainListLayoutBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+            this.binding.setColor(new Color());
             binding.getRoot().setOnClickListener(this);
         }
 
         @Override
-        public void onClick(View v) {
-
+        public void onClick(View view) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList(Constants.CRITERIA, mData.get(getAdapterPosition()).getCriteria());
+            bundle.putParcelable(Constants.CURRENT_DATA, mData.get(getAdapterPosition()));
+            Navigation.findNavController(view).navigate(R.id.destinationCriteria, bundle);
         }
     }
 }

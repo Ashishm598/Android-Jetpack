@@ -46,11 +46,11 @@ public class MainFragment extends Fragment implements MainFragmentContract.View 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         rootView = binding.getRoot();
 
-        viewModel.getResponseLiveData();
+        initRecyclerView(); // initRecyclerView
 
         loadData(); // load
 
-        initRecyclerView(); // initRecyclerView
+        viewModel.getResponseLiveData();
 
         return rootView;
     }
@@ -89,4 +89,5 @@ public class MainFragment extends Fragment implements MainFragmentContract.View 
             }
         });
     }
+
 }

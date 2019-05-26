@@ -17,6 +17,7 @@ public interface MainFragmentContract {
         void hideProgressBar();
 
         void loadData();
+
     }
 
     interface ViewModel {

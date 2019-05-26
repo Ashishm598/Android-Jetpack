@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main_activity_graph"
     app:startDestination="@id/destinationMain">
+
     <fragment
         android:id="@+id/destinationMain"
         android:name="ui.fragment.main.MainFragment"
@@ -17,5 +18,6 @@
         android:id="@+id/destinationCriteria"
         android:name="ui.fragment.criteria.CriteriaFragment"
         android:label="fragment_criteria"
-        tools:layout="@layout/fragment_criteria" />
+        tools:layout="@layout/fragment_criteria">
+    </fragment>
 </navigation>
