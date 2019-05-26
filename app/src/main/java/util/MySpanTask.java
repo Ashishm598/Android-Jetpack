@@ -20,8 +20,9 @@ import pojo.response.Variable;
 public class MySpanTask extends AsyncTask<List<Criteria>, String, List<Criteria>> {
 
     private Context context;
-    String currentVarKey;
-    Variable variable;
+    private String currentVarKey;
+    private Variable variable;
+    private String source;
 
 
     public MySpanTask(Context context) {
@@ -33,29 +34,29 @@ public class MySpanTask extends AsyncTask<List<Criteria>, String, List<Criteria>
         List<Spannable> spannableList = new ArrayList<>();
 
         for (int i = 0; i < lists[0].size(); i++) {
-            String source = lists[0].get(i).getText();
+            source = lists[0].get(i).getText();
             Spannable spannable = new SpannableStringBuilder(source);
 
             if (lists[0].get(i).getVariable() != null) {
 
-                int startIndex;
+                int startIndex, endIndex, finalStartIndex, finalEndIndex;
 
                 for (Map.Entry<String, Variable> item : lists[0].get(i).getVariable().entrySet()) {
                     currentVarKey = item.getKey();
                     variable = item.getValue();
 
                     startIndex = source.indexOf(currentVarKey.charAt(0));
+                    endIndex = startIndex + 1;
 
-                    if (variable.getValues() != null) {
-                        variable.getValues().get(0);
-                    } else {
-                        variable.getDefault_value();
-                    }
+                    String newString = setVariableVal(source, startIndex, endIndex, variable);
+
+                    finalStartIndex = newString.indexOf("(");
+                    finalEndIndex = newString.indexOf(")");
 
                     spannable.setSpan(
                             valuesClick(variable),
-                            startIndex,
-                            startIndex + 2,
+                            finalStartIndex,
+                            finalEndIndex,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     );
                 }
@@ -65,6 +66,19 @@ public class MySpanTask extends AsyncTask<List<Criteria>, String, List<Criteria>
         }
 
         return lists[0];
+    }
+
+    private String setVariableVal(String source, int startIndex, int endIndex, Variable variable) {
+        String string = source;
+        String value;
+        string = Util.replace(string, startIndex, '(');
+        string = Util.replace(string, endIndex, ')');
+        if (variable != null) {
+            value = String.valueOf(variable.getValues().get(0));
+        } else {
+            value = String.valueOf(variable.getDefault_value());
+        }
+        return string;
     }
 
     private ClickableSpan valuesClick(final Variable variable) {
