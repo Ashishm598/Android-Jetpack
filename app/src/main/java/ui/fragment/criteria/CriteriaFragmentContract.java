@@ -8,8 +8,7 @@ public interface CriteriaFragmentContract {
 
     interface View {
         void initView();
-        void initRecyclerView();
-        void setSpans(List<Criteria> criteria);
+        void initRecyclerView(List<Criteria> criteriaList);
     }
 
     interface ViewModel {

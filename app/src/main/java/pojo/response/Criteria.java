@@ -2,14 +2,11 @@ package pojo.response;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.Spannable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Criteria implements Parcelable {
 
@@ -23,7 +20,6 @@ public class Criteria implements Parcelable {
     @Expose
     private HashMap<String, Variable> variable;
 
-    private List<Spannable> spannables;
 
     public String getText() {
         return text;
@@ -49,13 +45,6 @@ public class Criteria implements Parcelable {
         this.variable = variable;
     }
 
-    public List<Spannable> getSpannables() {
-        return spannables;
-    }
-
-    public void setSpannables(List<Spannable> spannables) {
-        this.spannables = spannables;
-    }
 
     @Override
     public String toString() {
@@ -63,7 +52,6 @@ public class Criteria implements Parcelable {
                 "text='" + text + '\'' +
                 ", type='" + type + '\'' +
                 ", variable=" + variable +
-                ", spannables=" + spannables +
                 '}';
     }
 
@@ -80,15 +68,12 @@ public class Criteria implements Parcelable {
         dest.writeString(this.text);
         dest.writeString(this.type);
         dest.writeSerializable(this.variable);
-        dest.writeList(this.spannables);
     }
 
     protected Criteria(Parcel in) {
         this.text = in.readString();
         this.type = in.readString();
         this.variable = (HashMap<String, Variable>) in.readSerializable();
-        this.spannables = new ArrayList<Spannable>();
-        in.readList(this.spannables, Spannable.class.getClassLoader());
     }
 
     public static final Creator<Criteria> CREATOR = new Creator<Criteria>() {

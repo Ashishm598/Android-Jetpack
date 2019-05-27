@@ -20,12 +20,10 @@ import com.ashish.marketpluseassignment.databinding.FragmentCriteriaBinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import pojo.response.Criteria;
 import pojo.response.Response;
 import util.Constants;
-import util.MySpanTask;
 
 
 public class CriteriaFragment extends Fragment implements CriteriaFragmentContract.View {
@@ -52,15 +50,13 @@ public class CriteriaFragment extends Fragment implements CriteriaFragmentContra
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_criteria, container, false);
         rootView = binding.getRoot();
 
-        initRecyclerView(); //initRecyclerView
 
         if (getArguments() != null) {
             data = getArguments().getParcelable(Constants.CURRENT_DATA);
             criteriaList = getArguments().getParcelableArrayList(Constants.CRITERIA);
-            criteriaAdapter.setData(criteriaList);
             binding.setData(data);
             binding.setColor(new Color());
-            // setSpans(criteriaList);
+            initRecyclerView(criteriaList);
         }
 
         return rootView;
@@ -72,23 +68,12 @@ public class CriteriaFragment extends Fragment implements CriteriaFragmentContra
     }
 
     @Override
-    public void initRecyclerView() {
+    public void initRecyclerView(List<Criteria> criteriaList) {
         RecyclerView recyclerView = binding.rvCriteria;
-        criteriaAdapter = new CriteriaAdapter(mContext);
+        criteriaAdapter = new CriteriaAdapter(mContext, criteriaList);
         RecyclerView.LayoutManager linearLayout = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayout);
         recyclerView.setAdapter(criteriaAdapter);
     }
 
-    @Override
-    public void setSpans(List<Criteria> criteria) {
-        MySpanTask mySpanTask = new MySpanTask(getContext());
-        try {
-            criteriaList = mySpanTask.execute(criteria).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
