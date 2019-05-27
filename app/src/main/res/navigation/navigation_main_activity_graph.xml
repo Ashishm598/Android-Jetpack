@@ -19,5 +19,21 @@
         android:name="ui.fragment.criteria.CriteriaFragment"
         android:label="fragment_criteria"
         tools:layout="@layout/fragment_criteria">
+        <action
+            android:id="@+id/action_destinationCriteria_to_indicatorDialog"
+            app:destination="@id/destinationIndicator" />
+        <action
+            android:id="@+id/action_destinationCriteria_to_valuesFragmentDialog"
+            app:destination="@id/destinationValues" />
     </fragment>
+    <fragment
+        android:id="@+id/destinationIndicator"
+        android:name="ui.fragment.indicator.IndicatorFragment"
+        android:label="fragment_indicator_dialog"
+        tools:layout="@layout/fragment_indicator" />
+    <fragment
+        android:id="@+id/destinationValues"
+        android:name="ui.fragment.values.ValuesFragment"
+        android:label="fragment_values_fragment_dialog"
+        tools:layout="@layout/fragment_values" />
 </navigation>

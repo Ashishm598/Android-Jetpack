@@ -2,13 +2,16 @@ package util;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ClickableSpan;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
+
+import com.ashish.marketpluseassignment.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,24 +42,19 @@ public class MySpanTask extends AsyncTask<List<Criteria>, String, List<Criteria>
 
             if (lists[0].get(i).getVariable() != null) {
 
-                int startIndex, endIndex, finalStartIndex, finalEndIndex;
+                int startIndex, endIndex;
 
                 for (Map.Entry<String, Variable> item : lists[0].get(i).getVariable().entrySet()) {
                     currentVarKey = item.getKey();
                     variable = item.getValue();
 
                     startIndex = source.indexOf(currentVarKey.charAt(0));
-                    endIndex = startIndex + 1;
-
-                    String newString = setVariableVal(source, startIndex, endIndex, variable);
-
-                    finalStartIndex = newString.indexOf("(");
-                    finalEndIndex = newString.indexOf(")");
+                    endIndex = startIndex + 2;
 
                     spannable.setSpan(
                             valuesClick(variable),
-                            finalStartIndex,
-                            finalEndIndex,
+                            startIndex,
+                            endIndex,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     );
                 }
@@ -68,27 +66,16 @@ public class MySpanTask extends AsyncTask<List<Criteria>, String, List<Criteria>
         return lists[0];
     }
 
-    private String setVariableVal(String source, int startIndex, int endIndex, Variable variable) {
-        String string = source;
-        String value;
-        string = Util.replace(string, startIndex, '(');
-        string = Util.replace(string, endIndex, ')');
-        if (variable != null) {
-            value = String.valueOf(variable.getValues().get(0));
-        } else {
-            value = String.valueOf(variable.getDefault_value());
-        }
-        return string;
-    }
-
     private ClickableSpan valuesClick(final Variable variable) {
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(Constants.VARIABLE, variable);
         return new ClickableSpan() {
             @Override
             public void onClick(@NonNull View widget) {
                 if (variable.getValues() != null) {
-                    Toast.makeText(context, "VALUES!", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(widget).navigate(R.id.destinationValues, bundle);
                 } else {
-                    Toast.makeText(context, "INDICATOR!", Toast.LENGTH_SHORT).show();
+                    Navigation.findNavController(widget).navigate(R.id.destinationIndicator, bundle);
                 }
             }
         };

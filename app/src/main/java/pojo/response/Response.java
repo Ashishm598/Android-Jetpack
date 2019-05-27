@@ -77,6 +77,9 @@ public class Response implements Parcelable {
                 '}';
     }
 
+    public Response() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -91,9 +94,6 @@ public class Response implements Parcelable {
         dest.writeInt(this.id);
     }
 
-    public Response() {
-    }
-
     protected Response(Parcel in) {
         this.criteria = in.createTypedArrayList(Criteria.CREATOR);
         this.color = in.readString();
@@ -102,7 +102,7 @@ public class Response implements Parcelable {
         this.id = in.readInt();
     }
 
-    public static final Parcelable.Creator<Response> CREATOR = new Parcelable.Creator<Response>() {
+    public static final Creator<Response> CREATOR = new Creator<Response>() {
         @Override
         public Response createFromParcel(Parcel source) {
             return new Response(source);

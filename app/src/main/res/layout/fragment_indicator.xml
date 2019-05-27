@@ -1,0 +1,60 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="variable"
+            type="pojo.response.Variable" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:padding="20dp"
+        tools:context="ui.fragment.indicator.IndicatorFragment">
+
+        <TextView
+            android:id="@+id/tv_setParam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Parameters"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/tv_setParam"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:padding="20dp">
+
+            <TextView
+                android:id="@+id/tv_Period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="Period"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toEndOf="@+id/tv_Period"
+                android:background="@drawable/gray_border_background"
+                android:padding="5dp"
+                android:text='@{String.valueOf(variable.default_value),default=" "}' />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</layout>

@@ -4,7 +4,6 @@ package ui.fragment.criteria;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,9 +57,10 @@ public class CriteriaFragment extends Fragment implements CriteriaFragmentContra
         if (getArguments() != null) {
             data = getArguments().getParcelable(Constants.CURRENT_DATA);
             criteriaList = getArguments().getParcelableArrayList(Constants.CRITERIA);
+            criteriaAdapter.setData(criteriaList);
             binding.setData(data);
             binding.setColor(new Color());
-            setSpans(criteriaList);
+            // setSpans(criteriaList);
         }
 
         return rootView;
@@ -85,8 +85,6 @@ public class CriteriaFragment extends Fragment implements CriteriaFragmentContra
         MySpanTask mySpanTask = new MySpanTask(getContext());
         try {
             criteriaList = mySpanTask.execute(criteria).get();
-            Log.e("Criteria",criteriaList.toString());
-            criteriaAdapter.setData(criteriaList);
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

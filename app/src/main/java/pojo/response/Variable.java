@@ -88,6 +88,9 @@ public class Variable implements Parcelable {
         this.study_type = study_type;
     }
 
+    public Variable() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -104,12 +107,9 @@ public class Variable implements Parcelable {
         dest.writeString(this.study_type);
     }
 
-    public Variable() {
-    }
-
     protected Variable(Parcel in) {
         this.values = new ArrayList<Float>();
-        in.readList(this.values, Integer.class.getClassLoader());
+        in.readList(this.values, Float.class.getClassLoader());
         this.type = in.readString();
         this.default_value = in.readInt();
         this.max_value = in.readInt();
@@ -118,7 +118,7 @@ public class Variable implements Parcelable {
         this.study_type = in.readString();
     }
 
-    public static final Parcelable.Creator<Variable> CREATOR = new Parcelable.Creator<Variable>() {
+    public static final Creator<Variable> CREATOR = new Creator<Variable>() {
         @Override
         public Variable createFromParcel(Parcel source) {
             return new Variable(source);
